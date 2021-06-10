@@ -5,7 +5,7 @@ from sqlite3 import Error, OperationalError
 class GitHubDatabase():
     def __init__(
         self,
-        sqlite_database: str = 'git_hub.db'
+        sqlite_database: str = 'github_users.db'
     ):
         self.sqlite_database = sqlite_database
         self.conn = None
