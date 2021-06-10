@@ -2,6 +2,7 @@ import unittest
 # Test target
 from scripts.seed import Seed
 
+
 class TestSeed(unittest.TestCase):
     def setUp(self):
         self.seed = Seed()

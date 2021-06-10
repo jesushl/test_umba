@@ -1,0 +1,1 @@
+ What is the number by default to get from terminal in seed? 

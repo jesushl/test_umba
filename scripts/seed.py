@@ -43,8 +43,10 @@ class Seed():
 
 
 if __name__ == "__main__":
-    import arparse
-    import sqlite3
+    import argparse
+    # database manager
+    from scripts.git_hub_database import GitHubDatabase
+    # terminal parser
     parser = argparse.ArgumentParser(
         description="""
             This tool populate a DB with a sertain number of
@@ -62,4 +64,18 @@ if __name__ == "__main__":
             version, this free version also allow 60 queries by hour
         """
     )
+    args = parser.parse_args()
+    if args.total:
+        num_users = args.total
+    else:
+        # default 150
+        num_users = 150
+    db_manager = GitHubDatabase(sqlite_database='git_hub.db')
+    seed = Seed()
+    result = seed.get_users(num_users)
+    for register in result:
+        db_manager.insert_into_table(
+            'github_users',
+            register
+        )
     
