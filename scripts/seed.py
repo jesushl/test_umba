@@ -43,8 +43,23 @@ class Seed():
 
 
 if __name__ == "__main__":
-    s = Seed()
-    users = 150
-    res = s.get_users(num_users=users)
-    print(len(res))
-    print(sorted([val['id'] for val in res]))
+    import arparse
+    import sqlite3
+    parser = argparse.ArgumentParser(
+        description="""
+            This tool populate a DB with a sertain number of
+            users from git hub
+        """
+    )
+    parser.add_argument(
+        '-t',
+        '--total',
+        type=int,
+        help="""
+            A total of users to get from github, this number of
+            users will be consulting by an API tested with a correct
+            number of results of 45 users by query in an unauthenticated
+            version, this free version also allow 60 queries by hour
+        """
+    )
+    
