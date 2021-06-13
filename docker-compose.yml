@@ -6,3 +6,11 @@ services:
       - "5000:5000"
   redis:
     image: "redis:alpine"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: umba
+      POSTGRES_PASSWORD: ubuntu
+      POSTGRES_DB: github_users
