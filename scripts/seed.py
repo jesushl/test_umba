@@ -70,7 +70,7 @@ if __name__ == "__main__":
     else:
         # default 150
         num_users = 150
-    db_manager = GitHubDatabase(sqlite_database='git_hub.db')
+    db_manager = GitHubDatabase(sqlite_database='app/main/database/git_hub.db')
     seed = Seed()
     result = seed.get_users(num_users)
     for register in result:
@@ -78,4 +78,3 @@ if __name__ == "__main__":
             'github_users',
             register
         )
-    

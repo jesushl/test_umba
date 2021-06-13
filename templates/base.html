@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
+{% extends 'bootstrap/base.html' %}
+{% block head %}
+{{ super() }}
     <title>
       {% block title %} Flask platzi {%endblock%}
     </title>
-  </head>
-  <body>
+{% endblock %}
+{% block body %}
     {% block content %}
     {% endblock %}
-  </body>
-</html>
+{% endblock %}

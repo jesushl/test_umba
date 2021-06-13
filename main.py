@@ -1,8 +1,8 @@
-from flask import Flask, request, make_response, redirect, render_template
-
-app = Flask(__name__)
+from flask import request, make_response, redirect, render_template
+from flask_bootstrap import Bootstrap
 
 todos = ['Comprar Cafe', 'Enviar slicitud de compra', 'Entregar producto']
+
 
 @app.route('/')
 def index():
@@ -10,6 +10,7 @@ def index():
     response = make_response(redirect('/hello'))
     response.set_cookie('user_ip', user_ip)
     return response
+
 
 @app.route('/hello')
 def hellow():
