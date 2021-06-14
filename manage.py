@@ -6,7 +6,7 @@ from app import app, db
 
 
 app.config.from_object(os.environ['APP_SETTINGS'])
-arr.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 
 manager = Manager(app)
 app.config['DEBUG'] = True # Ensure debugger will load.
