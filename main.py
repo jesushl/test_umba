@@ -10,6 +10,9 @@ app = create_app()
 
 @app.route('/')
 def index():
+    """
+    Set a default pagination of 25 people
+    """
     user_ip = request.remote_addr
     response = make_response(redirect('/hello'))
     response.set_cookie('user_ip', user_ip)
