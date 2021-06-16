@@ -14,11 +14,12 @@ def index():
     """
     Set a default pagination of 25 people
     """
-    user_ip = request.remote_addr
-    response = make_response(redirect('/hello'))
-    response.set_cookie('user_ip', user_ip)
-    return response
+    return redirect(url_for('users_by_pagination', page=1))
 
+@app.route('users/<int:page>')
+def users_by_pagination(page):
+    pagination = request.args.get('pagination', None)
+    
 
 @app.route('/hello')
 def hellow():
@@ -51,9 +52,8 @@ def flask_script(num_users=150):
             )
             app.db.session.commit()
         except Exception as error:
-            ## Integrity safe for ids
+            # Integrity safe for ids
             pass
-
 
 
 @app.cli.command("init")
