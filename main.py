@@ -1,6 +1,4 @@
 from flask import request, make_response, redirect, render_template
-from flask_bootstrap import Bootstrap
-
 from app import create_app
 
 todos = ['Comprar Cafe', 'Enviar slicitud de compra', 'Entregar producto']
