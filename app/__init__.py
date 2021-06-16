@@ -10,4 +10,5 @@ def create_app():
     bootstrap = Bootstrap(app)
     app.config.from_object(Config)
     db = SQLAlchemy(app)
+    app.db = db
     return app

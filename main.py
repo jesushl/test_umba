@@ -1,7 +1,6 @@
 from flask import request, make_response, redirect, render_template
 from app import create_app
 
-todos = ['Comprar Cafe', 'Enviar slicitud de compra', 'Entregar producto']
 
 app = create_app()
 
