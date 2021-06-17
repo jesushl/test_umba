@@ -24,8 +24,6 @@ def index():
 def users_by_pagination(page):
     per_page = request.args.get('pagination', 25, type=int)
     coders = Coder.query.paginate(page=page, per_page=per_page)
-    print("#" * 50)
-    print(page)
     return render_template(
         'coders.html',
         coders=coders
