@@ -3,6 +3,7 @@
   {{ super() }} Coders
 {% endblock %}
 {% block content %}
+{% include 'pagination.html' %}
   <div class="containder">
     {% if coders %}
     <div class="card-columns">
