@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+  {{ super() }} Coders
+{% endblock %}
+{% block content %}
+  <div class="containder">
+    {% if coders %}
+    <div class="card-columns">
+      {% for coder in coders.items %}
+        <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+          <div class="card-body">
+
+              <h5 class="card-title">{{ coder.username }}</h5>
+
+          </div>
+          <a href="{{ coder.url }}">
+          <img
+            class="card-img-top"
+            src="{{ coder.avatar }}"
+            alt="Card image cap"
+          >
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

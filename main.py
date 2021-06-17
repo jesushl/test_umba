@@ -1,4 +1,4 @@
-from flask import request, make_response, redirect, render_template
+from flask import request, make_response, redirect, render_template, url_for
 from app import create_app
 # Database filler from git_hub
 from scripts.seed import Seed
@@ -16,10 +16,17 @@ def index():
     """
     return redirect(url_for('users_by_pagination', page=1))
 
-@app.route('users/<int:page>')
+
+@app.route('/users/<int:page>')
 def users_by_pagination(page):
-    pagination = request.args.get('pagination', None)
-    
+    per_page = request.args.get('pagination', 25, type=int)
+    coders = Coder.query.paginate(page=page, per_page=per_page)
+    print(coders)
+    return render_template(
+        'coders.html',
+        coders=coders
+    )
+
 
 @app.route('/hello')
 def hellow():
