@@ -5,9 +5,12 @@ from scripts.seed import Seed
 # custom commands
 import click
 
+# Config
+from flask_migrate import Migrate
 
 app = create_app()
 
+migrate =Migrate(app, app.db)
 
 @app.route('/')
 def index():
