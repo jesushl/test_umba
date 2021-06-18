@@ -90,10 +90,9 @@ def profiles():
         return json.dumps({user})
 
 
-
-def json_reponse(pagination: Coder):
+def json_reponse(pagination):
     list = [item for item in pagination.items]
-    return json.dumps({list})
+    return json.dumps(list)
 
 
 # CUSTOM COMMANDS
@@ -119,6 +118,7 @@ def flask_script(num_users=150, since_id=0):
             # Integrity safe for ids
             pass
 
+
 @app.cli.command("init")
 def app_init():
     """
@@ -130,7 +130,6 @@ def app_init():
     migrate.init_app(app.app, app.db)
     logging("database inits with 250 users")
     flask_script(num_users=250, since_id=0)
-
 
 
 class Coder(app.db.Model):
