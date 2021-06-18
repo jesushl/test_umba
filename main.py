@@ -25,9 +25,13 @@ def index():
 def users_by_pagination(page):
     per_page = request.args.get('pagination', 25, type=int)
     coders = Coder.query.paginate(page=page, per_page=per_page)
+    paginator_index = list(range(per_page))
+    _ = zip(coders.items, paginator_index)
+    paginator = coders
     return render_template(
         'coders.html',
-        coders=coders
+        coders=_,
+        paginator=paginator
     )
 
 

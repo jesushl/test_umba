@@ -4,26 +4,30 @@
 {% endblock %}
 {% block content %}
 {% include 'pagination.html' %}
+{% set counter = 0 %}
   <div class="containder">
-    {% if coders %}
-    <div class="card-columns">
-      {% for coder in coders.items %}
-        <div class="card text-white bg-primary mb-3" style="width: 18rem;">
-          <div class="card-body">
-
-              <h5 class="card-title">{{ coder.id }} - {{ coder.username }}</h5>
-
+      {% for coder, num in coders %}
+        {% if (num is divisibleby(5)) or (num==0) %}
           </div>
-          <a href="{{ coder.url }}">
-          <img
-            class="card-img-top"
-            src="{{ coder.avatar }}"
-            alt="Card image cap"
-          >
-          </a>
+          </div>
+          <div class="row">
+            <div class="card-deck">
+        {% endif %}
+        <div class="card text-white bg-primary mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ coder.id }} - {{ coder.username }}</h5>
+            </div>
+            <a href="{{ coder.url }}">
+              <img
+                class="card-img-top"
+                src="{{ coder.avatar }}"
+                alt="Card image cap"
+              >
+            </a>
         </div>
+
       {% endfor %}
-    {% endif %}
+    </div>
     </div>
   </div>
 

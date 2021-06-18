@@ -3,11 +3,11 @@
 <nav aria-label="Users">
 <ul class="pagination">
 <!-- Loop through the number of pages to display a link for each-->
-{% for page_num in coders.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% for page_num in paginator.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
 {% if page_num %}
 <!-- Check for the active page and set the link to "Active"-->
 
-      {% if coders.page == page_num %}
+      {% if paginator.page == page_num %}
             <li class="page-item active">
             <a class="page-link" href="{{ url_for('users_by_pagination', page=page_num) }}"
                class="btn btn-dark">
@@ -26,6 +26,6 @@
             ...
         {% endif %}
     {% endfor %}
-</ul>
+  </ul>
 </nav>
 </div>
