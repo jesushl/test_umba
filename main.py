@@ -4,13 +4,13 @@ from app import create_app
 from scripts.seed import Seed
 # custom commands
 import click
-
 # Config
 from flask_migrate import Migrate
 
 app = create_app()
 
-migrate =Migrate(app, app.db)
+migrate = Migrate(app, app.db)
+
 
 @app.route('/')
 def index():
@@ -45,9 +45,10 @@ def not_foud(error):
 # CUSTOM COMMANDS
 @app.cli.command("flask-script")
 @click.argument("num_users")
-def flask_script(num_users=150):
+@click.argument("since_id")
+def flask_script(num_users=150, since_id=0):
     seed = Seed()
-    users = seed.get_users(num_users=int(num_users))
+    users = seed.get_users(num_users=int(num_users), since_id=int(since_id))
     for user in users:
         try:
             app.db.session.add(
@@ -68,6 +69,7 @@ def flask_script(num_users=150):
 @app.cli.command("init")
 def app_init():
     app.db.create_all()
+    flask_script(num_users=250, since_id=0)
 
 
 class Coder(app.db.Model):
@@ -78,4 +80,4 @@ class Coder(app.db.Model):
     type = app.db.Column(app.db.String(5), nullable=False)
 
     def __repr__(self):
-        return "{self.username} {self.user}"
+        return "{self.id}: {self.username}".format(self=self)
