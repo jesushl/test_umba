@@ -1,4 +1,6 @@
-import logging
+# internal python
+import json
+# flask app behavior
 from flask import request, make_response, redirect, render_template, url_for
 from app import create_app
 # Database filler from git_hub
@@ -47,6 +49,53 @@ def not_foud(error):
     return render_template('404.html', error=error)
 
 
+# Api
+@app.route('/api/users/profiles/')
+def profiles():
+    pagination = request.args.get('pagination', None, type=int)
+    page = request.args.get('page', None, type=int)
+    order_by = request.args.get('order_by', None, type=str)
+    username = request.args.get('username', None, type=str)
+    id = request.args.get('id', None, type=int)
+    if (
+        (not pagination) and
+        (not page) and
+        (not order_by) and
+        (not username) and
+        (not id)
+    ):
+        page = 1
+        pagination = 25
+    error_response = []
+    if page:
+        pagination_iter = Coder.query.paginate(page=page, per_page=pagination)
+        return json_reponse(pagination_iter)
+    if order_by:
+        if order_by == 'id':
+            _ = Coder.query.order_by(Coder.id).all()[pagination]
+            return json_reponse(_)
+        elif order_by == 'type':
+            _ = Coder.query.order_by(Coder.type).all()[pagination]
+            return json_reponse(_)
+        else:
+            error_response.append(
+                "Only id or type are alowed on order_by filter"
+            )
+            return json.dups(error_response)
+    if username:
+        user = Coder.query.filter_by(username=username)
+        return json.dumps({user})
+    if id:
+        user = Coder.query.filter_by(id=id)
+        return json.dumps({user})
+
+
+
+def json_reponse(pagination: Coder):
+    list = [item for item in pagination.items]
+    return json.dumps({list})
+
+
 # CUSTOM COMMANDS
 @app.cli.command("flask-script")
 @click.argument("num_users")
@@ -70,7 +119,6 @@ def flask_script(num_users=150, since_id=0):
             # Integrity safe for ids
             pass
 
-
 @app.cli.command("init")
 def app_init():
     """
@@ -82,6 +130,7 @@ def app_init():
     migrate.init_app(app.app, app.db)
     logging("database inits with 250 users")
     flask_script(num_users=250, since_id=0)
+
 
 
 class Coder(app.db.Model):

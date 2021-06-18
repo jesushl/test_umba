@@ -4,7 +4,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 from app.config import Config
 
-
 def create_app():
     app = Flask(__name__)
     bootstrap = Bootstrap(app)
