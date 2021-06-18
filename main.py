@@ -1,3 +1,4 @@
+import logging
 from flask import request, make_response, redirect, render_template, url_for
 from app import create_app
 # Database filler from git_hub
@@ -68,7 +69,14 @@ def flask_script(num_users=150, since_id=0):
 
 @app.cli.command("init")
 def app_init():
-    app.db.create_all()
+    """
+    Run this commant to send first data on database
+    if your database is populated use
+    flask db init fot a safe instance creation in docker
+    """
+    app.db.init_app()
+    migrate.init_app(app.app, app.db)
+    logging("database inits with 250 users")
     flask_script(num_users=250, since_id=0)
 
 
