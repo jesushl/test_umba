@@ -9,6 +9,8 @@ from scripts.seed import Seed
 import click
 # Config
 from flask_migrate import Migrate
+# Query objects
+from flask_sqlalchemy import BaseQuery, Pagination
 
 app = create_app()
 
@@ -49,6 +51,21 @@ def not_foud(error):
     return render_template('404.html', error=error)
 
 
+def json_reponse(object):
+    object_response = object
+    if isinstance(object, Pagination):
+        object_response = [str(item) for item in object.items]
+    if isinstance(object, BaseQuery):
+        if hasattr(object, 'items'):
+            # Query objects
+            object_response = [str(item) for item in object.items]
+        else:
+            object_response = [object[0]]
+    else:
+        object_response = str(object)
+    return json.dumps(object_response)
+
+
 # Api
 @app.route('/api/users/profiles/')
 def profiles():
@@ -72,27 +89,31 @@ def profiles():
         return json_reponse(pagination_iter)
     if order_by:
         if order_by == 'id':
-            _ = Coder.query.order_by(Coder.id).all()[pagination]
+            if not pagination:
+                pagination = 25
+            _ = Coder.query.order_by('id').all()[:pagination]
             return json_reponse(_)
         elif order_by == 'type':
-            _ = Coder.query.order_by(Coder.type).all()[pagination]
+            _ = Coder.query.order_by('id').all()[:pagination]
             return json_reponse(_)
         else:
             error_response.append(
                 "Only id or type are alowed on order_by filter"
             )
-            return json.dups(error_response)
+            return json_reponse([error_response])
     if username:
         user = Coder.query.filter_by(username=username)
-        return json.dumps({user})
+        return json_reponse(user)
     if id:
         user = Coder.query.filter_by(id=id)
-        return json.dumps({user})
+        return json_reponse(user)
+    if pagination:
+        if not page:
+            page = 1
+        users = Coder.query.paginate(page=page, per_page=pagination)
+        return json_reponse(users)
 
 
-def json_reponse(pagination):
-    list = [item for item in pagination.items]
-    return json.dumps(list)
 
 
 # CUSTOM COMMANDS
@@ -140,4 +161,7 @@ class Coder(app.db.Model):
     type = app.db.Column(app.db.String(5), nullable=False)
 
     def __repr__(self):
-        return "{self.id}: {self.username}".format(self=self)
+        return "{{ id:{self.id} name:{self.username} }}".format(self=self)
+
+    def __str__(self):
+        return "{{ id:{self.id} name:{self.username} }}".format(self=self)
