@@ -11,12 +11,8 @@ web:
 redis:
   image: "redis:alpine"
 
-db:
-  image: postgres
-  restart: always
-  environment:
-    POSTGRES_USER: umba
-    POSTGRES_PASSWORD: ubuntu
-    POSTGRES_DB: github_users
-  ports:
-    - "8001:5432"
+
+setup:
+  addons:
+  - plan: heroku-postgresql
+    as: DATABASE
