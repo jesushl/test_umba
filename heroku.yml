@@ -1,18 +1,12 @@
-version: "3.3"
-
-web:
-  build: .
-  ports:
-    - "5000:5000"
-  volumes:
-    - .:/code
-  environment:
-    FLASK_ENV: development
-redis:
-  image: "redis:alpine"
-
 
 setup:
   addons:
   - plan: heroku-postgresql
     as: DATABASE
+
+build:
+  docker:
+    web: Dockerfile
+  config:
+    FLASK_ENV: production
+    FLASK_APP: main.py
