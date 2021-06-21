@@ -14,7 +14,7 @@ from flask_sqlalchemy import BaseQuery, Pagination
 
 app = create_app()
 
-migrate = Migrate(app.app, app.db)
+migrate = Migrate(app, app.db)
 
 
 @app.route('/')
@@ -147,9 +147,8 @@ def app_init():
     if your database is populated use
     flask db init fot a safe instance creation in docker
     """
-    app.db.init_app()
-    migrate.init_app(app.app, app.db)
-    logging("database inits with 250 users")
+    app.db.init_app(app)
+    migrate.init_app(app, app.db)
     flask_script(num_users=250, since_id=0)
 
 
