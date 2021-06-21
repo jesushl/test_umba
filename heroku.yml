@@ -11,4 +11,4 @@ build:
     FLASK_ENV: development
     FLASK_APP: main.py
 run:
-  web: 
+  web: gunicorn --bind 0.0.0.0:$PORT main:app
