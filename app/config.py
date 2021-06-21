@@ -10,7 +10,7 @@ class Config:
     if not SQLALCHEMY_DATABASE_URI:
         SQLALCHEMY_DATABASE_URI = "sqlite:///main/database/git_hub_test.db"
     else:
-        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.repalce(
+        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace(
             'postgres', 'postgresql'
         )
     SQLALCHEMY_TRACK_MODIFICATIONS = True
