@@ -10,3 +10,5 @@ build:
   config:
     FLASK_ENV: development
     FLASK_APP: main.py
+run:
+  web: 
