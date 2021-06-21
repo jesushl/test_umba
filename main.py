@@ -14,7 +14,7 @@ from flask_sqlalchemy import BaseQuery, Pagination
 
 app = create_app()
 
-migrate = Migrate(app, app.db)
+migrate = Migrate(app.app, app.db)
 
 
 @app.route('/')
