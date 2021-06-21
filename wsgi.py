@@ -1,2 +1,2 @@
 import os
-os.environ.setdefault('FLASK-APP', 'main')
+os.environ.setdefault('FLASK-APP', 'main.py')

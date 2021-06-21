@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+
+  redis:
+    image: "redis:alpine"
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: umba
+      POSTGRES_PASSWORD: ubuntu
+      POSTGRES_DB: github_users
+    ports:
+      - "8001:5432"
