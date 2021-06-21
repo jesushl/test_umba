@@ -6,7 +6,7 @@ setup:
 
 build:
   docker:
-    web: Dockerfile
+    web: DockerfileHeroku
   config:
     FLASK_ENV: development
     FLASK_APP: main.py
