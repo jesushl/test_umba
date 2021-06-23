@@ -27,7 +27,7 @@ After clonning the project you need folow the next steps to run it on your local
   - ```flask-script <num_users> <since_id>```
 
 - Run the app 
-  - ```flask runserver ```
+  - ```flask run ```
 
 ## Run it using docker 
 (Require Docker and docker-compose installed)
@@ -43,3 +43,7 @@ After clonning the project you need folow the next steps to run it on your local
 - Initialize the database
   - ```docker exec -it <container_id_or_name> echo flask flask-script <num_users> <since_id>```
     - example: ``` docker exec -it umba_web echo flask flask-script 150 1 ```
+
+
+## Test 
+```pytest``` 
